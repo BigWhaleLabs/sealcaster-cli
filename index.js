@@ -279,6 +279,7 @@ console.log(
   "🎉 Also save your burner wallet private key, you'll be able to reply and follow up with it at https://sealcaster.xyz"
     .blue
 )
+console.log('🎉 Burner wallet private key:'.blue, wallet.privateKey)
 console.log('🎉 Cheers!'.blue.bold)
 separator()
 process.exit(0)
