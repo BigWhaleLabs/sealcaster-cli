@@ -12,10 +12,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@big-whale-labs/seal-cred-posts-contract@npm:^0.0.14":
-  version: 0.0.14
-  resolution: "@big-whale-labs/seal-cred-posts-contract@npm:0.0.14"
-  checksum: d4c322597bde0eec5506c04aa964ae63b9c54e0fc705fe0c4fc6eed6728a71d04e5598c8d3883a9d2026d8af8dbbdd4bde017c1b5fae0fef8763197af0529aa9
+"@big-whale-labs/seal-cred-posts-contract@npm:^0.0.15-2":
+  version: 0.0.15-2
+  resolution: "@big-whale-labs/seal-cred-posts-contract@npm:0.0.15-2"
+  checksum: 0eb1c4bff0f3fc7a22ddd1a9c35d882b969de513445a953d19448cf08a0b6d675b00bdf3f2576ebaa0971ca584bd2dd624b3d0dbf29d0c678363022eceaa154b
   languageName: node
   linkType: hard
 
@@ -5146,7 +5146,7 @@ __metadata:
   resolution: "sealcaster-cli@workspace:."
   dependencies:
     "@big-whale-labs/seal-cred-ledger-contract": ^0.2.9
-    "@big-whale-labs/seal-cred-posts-contract": ^0.0.14
+    "@big-whale-labs/seal-cred-posts-contract": ^0.0.15-2
     "@opengsn/provider": 3.0.0-beta.1
     axios: ^1.1.3
     colors: ^1.4.0

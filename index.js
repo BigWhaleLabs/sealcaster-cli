@@ -244,7 +244,7 @@ console.log(
   `📝 You're all set to post a message anonymously from ${wallet.address}!`
 )
 console.log(
-  `📝 Go check out if this address is doxxed or not: https://goerli.etherscan.io/address/${wallet.address}!`
+  `📝 Go check out if this address is doxxed or not: https://goerli.etherscan.io/address/${wallet.address}`
 )
 console.log('📝 Posting the message...')
 const postStorageContract = SCPostStorage__factory.connect(
@@ -272,11 +272,11 @@ separator()
 console.log('🎉 You did it!'.blue.bold)
 console.log('🎉 You posted a message completely anonymously!'.blue)
 console.log(
-  '🎉 Check your message at https://sealcaster.xyz and https://fcast.me/sealcaster!'
+  '🎉 Check your message at https://sealcaster.xyz and https://fcast.me/sealcaster'
     .blue
 )
 console.log(
-  "🎉 Also save your burner wallet private key, you'll be able to reply and follow up with it at https://sealcaster.xyz!"
+  "🎉 Also save your burner wallet private key, you'll be able to reply and follow up with it at https://sealcaster.xyz"
     .blue
 )
 console.log('🎉 Cheers!'.blue.bold)
