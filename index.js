@@ -14,8 +14,6 @@ import buildBabyJub from './circomlibjs/babyjub.js'
 import buildMimc7 from './circomlibjs/mimc7.js'
 import prompt from 'prompt'
 
-prompt.setMaxListeners(100)
-
 function separator() {
   console.log('🐳'.repeat(20))
 }
@@ -46,11 +44,16 @@ console.log(
 console.log(
   '🤙 Note, that https://sealcaster.xyz or this script has no connection to https://web3modal-dev.pages.dev. The only thing this script gets is the signature.'
 )
-const { signature } = await prompt.get({
+const { signature, message: messageToPost } = await prompt.get({
   properties: {
     signature: {
       description: 'signature (starts with "0x")',
       required: true,
+    },
+    message: {
+      description: 'What message do you want to post? (up to 279 characters)',
+      required: true,
+      maxLength: 279,
     },
   },
 })
@@ -243,15 +246,6 @@ console.log(
 console.log(
   `📝 Go check out if this address is doxxed or not: https://goerli.etherscan.io/address/${wallet.address}!`
 )
-const { message: messageToPost } = await prompt.get({
-  properties: {
-    message: {
-      description: 'What message do you want to post? (up to 279 characters)',
-      required: true,
-      maxLength: 279,
-    },
-  },
-})
 console.log('📝 Posting the message...')
 const postStorageContract = SCPostStorage__factory.connect(
   '0x7CE90c714Dbc48538Ec2838E5e6483155D506AAb',
