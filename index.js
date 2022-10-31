@@ -14,6 +14,8 @@ import buildBabyJub from './circomlibjs/babyjub.js'
 import buildMimc7 from './circomlibjs/mimc7.js'
 import prompt from 'prompt'
 
+prompt.setMaxListeners(100)
+
 function separator() {
   console.log('🐳'.repeat(20))
 }
