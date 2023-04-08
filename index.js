@@ -30,19 +30,19 @@ console.log(
     .blue
 )
 console.log(
-  '🤓 Using the following prompts you will cast anonymously to https://sealcaster.xyz and https://fcast.me/sealcaster'
+  '🤓 Using the following prompts you will cast anonymously to https://sealcaster.xyz and https://warpcast.com/sealcaster'
     .blue
 )
 separator()
 emptyLine()
 
 /** Signature */
-const message = 'Hello Web3Modal'
+const message = 'Hello Web3Modal!'
 console.log(
-  `🤙 Please proceed to https://web3modal-dev.pages.dev, connect the wallet you have connected to Farcaster, scroll to "useSignMessage", click "Sign Message", and enter the signature that you've obtained. You may also try to find other means of obtaining a signature of the message "${message}".`
+  `🤙 Please proceed to https://web3modal-dev.pages.dev/v2Base, connect the wallet you have connected to Farcaster, scroll to "useSignMessage", click "Sign Message", and enter the signature that you've obtained. You may also try to find other means of obtaining a signature of the message "${message}".`
 )
 console.log(
-  '🤙 Note, that https://sealcaster.xyz or this script has no connection to https://web3modal-dev.pages.dev. The only thing this script gets is the signature.'
+  '🤙 Note, that https://sealcaster.xyz or this script has no connection to https://web3modal-dev.pages.dev/v2Base. The only thing this script gets is the signature.'
 )
 const { signature, message: messageToPost } = await prompt.get({
   properties: {
@@ -51,7 +51,7 @@ const { signature, message: messageToPost } = await prompt.get({
       required: true,
     },
     message: {
-      description: 'What message do you want to post? (up to 279 characters)',
+      description: 'What message do you want to post? (up to 319 characters)',
       required: true,
       maxLength: 279,
     },
@@ -70,9 +70,15 @@ export default function relayProvider(provider) {
   return RelayProvider.newProvider({
     provider: new WrapBridge(new Eip1193Bridge(provider.getSigner(), provider)),
     config: {
-      paymasterAddress: '0xe66fcE4FA95a94fdE5d277e113012686FFBF28d2',
-      preferredRelays: ['https://gsn.sealcred.xyz'],
-      blacklistedRelays: ['https://goerli.v3.opengsn.org/v3'],
+      paymasterAddress: '0x499FE0eA2d9F42AcF8f9AF8a1b6C2DAb6DCB3289',
+      preferredRelays: ['https://goerli.v3.relays.bwl.gg/'],
+      blacklistedRelays: [
+        'https://gsn.fizen.io/',
+        'https://goerli.3-0-0-beta-3.opengsn.org/v3 ',
+      ],
+      minMaxPriorityFeePerGas: 8e9,
+      gasPriceFactorPercent: 150,
+      getGasFeesBlocks: 15,
     },
   }).init()
 }
@@ -207,7 +213,7 @@ console.log(
   `🪙 Now, we will mint you a ZK badge to the burner wallet ${wallet.address}!`
 )
 const sealCasterLedger = SCFarcasterLedger__factory.connect(
-  '0x55EA2cdCA3a2B63F88104C790705f26Fb340f186',
+  '0x22bCED69B7e7F6a57fa10EF766e3Bf71ED72B31D',
   signer
 )
 const mintTxData = {
@@ -272,7 +278,7 @@ separator()
 console.log('🎉 You did it!'.blue.bold)
 console.log('🎉 You posted a message completely anonymously!'.blue)
 console.log(
-  '🎉 Check your message at https://sealcaster.xyz and https://fcast.me/sealcaster'
+  '🎉 Check your message at https://sealcaster.xyz and https://warpcast.com/sealcaster'
     .blue
 )
 console.log(
