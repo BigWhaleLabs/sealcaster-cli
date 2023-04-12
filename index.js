@@ -1,6 +1,14 @@
 import 'colors'
 import * as snarkjs from 'snarkjs'
 import { BigNumber, Wallet, providers } from 'ethers'
+import {
+  ETH_NETWORK,
+  ETH_RPC,
+  GSN_PAYMASTER_CONTRACT_ADDRESS,
+  SC_FARCASTER_LEDGER_CONTRACT_ADDRESS,
+  SC_FARCASTER_POSTS_CONTRACT_ADDRESS,
+  VERIFY_URL,
+} from '@big-whale-labs/constants'
 import { Eip1193Bridge } from '@ethersproject/experimental'
 import { RelayProvider } from '@opengsn/provider'
 import { SCFarcasterLedger__factory } from '@big-whale-labs/seal-cred-ledger-contract'
@@ -70,23 +78,20 @@ export default function relayProvider(provider) {
   return RelayProvider.newProvider({
     provider: new WrapBridge(new Eip1193Bridge(provider.getSigner(), provider)),
     config: {
-      paymasterAddress: '0x499FE0eA2d9F42AcF8f9AF8a1b6C2DAb6DCB3289',
+      paymasterAddress: GSN_PAYMASTER_CONTRACT_ADDRESS,
       preferredRelays: ['https://goerli.v3.relays.bwl.gg/'],
       blacklistedRelays: [
         'https://gsn.fizen.io/',
         'https://goerli.3-0-0-beta-3.opengsn.org/v3 ',
       ],
-      minMaxPriorityFeePerGas: 8e9,
+      minMaxPriorityFeePerGas: 5e9,
       gasPriceFactorPercent: 150,
       getGasFeesBlocks: 15,
     },
   }).init()
 }
 const wallet = Wallet.createRandom()
-const defaultProvider = new providers.JsonRpcProvider(
-  'https://goerli.sealcred.xyz/rpc',
-  'goerli'
-)
+const defaultProvider = new providers.JsonRpcProvider(ETH_RPC, ETH_NETWORK)
 const gsnProvider = await relayProvider(defaultProvider)
 gsnProvider.addAccount(wallet.privateKey)
 const ethersProvider = new Web3Provider(gsnProvider)
@@ -105,7 +110,7 @@ emptyLine()
 console.log(
   `📜 Now, we will obtain two attestations: one for the fact that you own ${originalAddress} — and another for the fact that ${originalAddress} is connected to at least one Farcaster account`
 )
-const baseURL = 'https://verify.sealcred.xyz/v0.2.2/verify'
+const baseURL = `${VERIFY_URL}/v0.2.2/verify`
 console.log(`📜 Obtaining the EdDSA public key of the attestor...`)
 const { data: eddsaPublicKey } = await axios.get(`${baseURL}/eddsa-public-key`)
 console.log(`📜 Got the EdDSA public key of the attestor!`, eddsaPublicKey)
@@ -213,7 +218,7 @@ console.log(
   `🪙 Now, we will mint you a ZK badge to the burner wallet ${wallet.address}!`
 )
 const sealCasterLedger = SCFarcasterLedger__factory.connect(
-  '0x22bCED69B7e7F6a57fa10EF766e3Bf71ED72B31D',
+  SC_FARCASTER_LEDGER_CONTRACT_ADDRESS,
   signer
 )
 const mintTxData = {
@@ -254,7 +259,7 @@ console.log(
 )
 console.log('📝 Posting the message...')
 const postStorageContract = SCPostStorage__factory.connect(
-  '0x7CE90c714Dbc48538Ec2838E5e6483155D506AAb',
+  SC_FARCASTER_POSTS_CONTRACT_ADDRESS,
   signer
 )
 const postTx = await postStorageContract.savePost(
